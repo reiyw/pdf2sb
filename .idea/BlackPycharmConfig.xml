@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BlackPycharmConfig">
+    <option name="executableName" value="$USER_HOME$/.pyenv/versions/anaconda3-2018.12/bin/black" />
+  </component>
+</project>

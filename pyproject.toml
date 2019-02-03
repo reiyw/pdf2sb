@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "pdf2sb"
+version = "0.1.0"
+description = ""
+license = "MIT"
+authors = ["reiyw <reiyw.setuve@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/reiyw/pdf2sb"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pillow = "^5.4"
+pdf2image = "^1.4"
+python-gyazo = "^1.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+
+[tool.poetry.scripts]
+pdf2sb = "pdf2sb:main"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
