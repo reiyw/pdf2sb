@@ -22,7 +22,7 @@ def main() -> None:
             img.save(img_path)
             gyazoimg = client.upload_image(img_path.open("rb"))
             urls.append(gyazoimg.to_dict()["permalink_url"])
-    print(*(f"[{url}]" for url in urls), sep="\n")
+    print(*(f"> [{url}]\n" for url in urls), sep="\n")
 
 
 if __name__ == "__main__":
