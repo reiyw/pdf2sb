@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pdf2sb"
 version = "0.1.1"
-description = ""
+description = "Upload PDF file to Gyazo as images then convert Scrapbox format"
 license = "MIT"
 authors = ["reiyw <reiyw.setuve@gmail.com>"]
 readme = "README.md"
@@ -12,6 +12,7 @@ python = "^3.7"
 pillow = "^5.4"
 pdf2image = "^1.4"
 python-gyazo = "^1.1"
+tqdm = "^4.30"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"

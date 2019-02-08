@@ -7,6 +7,7 @@ from typing import List
 import gyazo
 from PIL.Image import Image
 from pdf2image import convert_from_path
+from tqdm import tqdm
 
 __version__ = "0.1.1"
 
@@ -17,7 +18,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as tempdir:
         images: List[Image] = convert_from_path(sys.argv[1], dpi=100, fmt="png")
         tempdir_p = Path(tempdir)
-        for i, img in enumerate(images):
+        for i, img in enumerate(tqdm(images, desc="Uploading")):
             img_path = tempdir_p / f"{i}.png"
             img.save(img_path)
             gyazoimg = client.upload_image(img_path.open("rb"))
