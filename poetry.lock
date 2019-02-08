@@ -166,14 +166,6 @@ version = "1.12.0"
 
 [[package]]
 category = "main"
-description = "Fast, Extensible Progress Meter"
-name = "tqdm"
-optional = false
-python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "4.30.0"
-
-[[package]]
-category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
@@ -181,7 +173,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
 version = "1.24.1"
 
 [metadata]
-content-hash = "ed0c9bafab2ff73e51856a23654c334a380f0bc0cf9c47d8afee0d62e90131ce"
+content-hash = "3166a246415f9b17cfe97d8cb5f12d6fe96d285407c87edb2da317dd9b4d15d9"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -202,5 +194,4 @@ python-dateutil = ["063df5763652e21de43de7d9e00ccf239f953a832941e37be541614732cd
 python-gyazo = ["23fed6337b3064ae808e4640bfdb7a5c39aeb959092312a51ee71c9b623fd0db", "d18654963cd38c3b494ecb9607d031313b36a9ba6ff74fb780ebc041e65b5827"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
-tqdm = ["13f018038711256ed27aae118a80d63929588e90f00d072a0f4eb7aa3333b4dc", "dd60ea2567baa013c625153ce41fd274209c69a5814513e1d635f20e5cd61b97"]
 urllib3 = ["61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39", "de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"]

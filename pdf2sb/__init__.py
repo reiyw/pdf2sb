@@ -7,7 +7,6 @@ import click
 import gyazo
 from PIL.Image import Image
 from pdf2image import convert_from_path
-from tqdm import tqdm
 
 __version__ = "0.2.0"
 
@@ -62,11 +61,12 @@ def main(filepath: str, token: str, dpi: int, pages: Optional[str]) -> None:
                 )
             )
         tempdir_p = Path(tempdir)
-        for i, img in enumerate(tqdm(images, desc="Uploading")):
-            img_path = tempdir_p / f"{i}.png"
-            img.save(img_path)
-            gyazoimg = client.upload_image(img_path.open("rb"))
-            urls.append(gyazoimg.to_dict()["permalink_url"])
+        with click.progressbar(images, label="Uploading") as bar:
+            for i, img in enumerate(bar):
+                img_path = tempdir_p / f"{i}.png"
+                img.save(img_path)
+                gyazoimg = client.upload_image(img_path.open("rb"))
+                urls.append(gyazoimg.to_dict()["permalink_url"])
     print(*(f"> [{url}]\n" for url in urls), sep="\n")
 
 
