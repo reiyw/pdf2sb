@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdf2sb"
-version = "0.2.0"
+version = "0.3.0"
 description = "Upload PDF file to Gyazo as images then convert Scrapbox format"
 license = "MIT"
 authors = ["reiyw <reiyw.setuve@gmail.com>"]
