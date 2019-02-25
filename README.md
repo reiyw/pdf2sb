@@ -1,5 +1,7 @@
 # pdf2sb
 
+![PyPI](https://img.shields.io/pypi/v/pdf2sb.svg) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pdf2sb.svg) ![PyPI - License](https://img.shields.io/pypi/l/pdf2sb.svg)
+
 Upload PDF file to Gyazo as images then convert Scrapbox format.
 
 ## Usage
