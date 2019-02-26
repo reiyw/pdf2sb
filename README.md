@@ -19,13 +19,20 @@ Paste copied text to a Scrapbox page:
 
 ## Installation
 
+- [poppler](https://poppler.freedesktop.org/) is required to generate images from a PDF file. Install poppler via Homebrew:
+
+```sh
+brew install poppler
+```
+
+- Install pdf2sb:
+
 ```sh
 pip install pdf2sb
 ```
 
-Get Gyazo access token from [here](https://gyazo.com/oauth/applications).
-
-Set `$GYAZO_ACCESS_TOKEN`:
+- Get Gyazo access token from [here](https://gyazo.com/oauth/applications). 
+- Set `$GYAZO_ACCESS_TOKEN`:
 
 ```sh
 export GYAZO_ACCESS_TOKEN=<access token>
