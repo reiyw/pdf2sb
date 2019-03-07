@@ -32,6 +32,38 @@ def parse_range(expr: str) -> Iterator[int]:
             raise ValueError(f"format error in {x}")
 
 
+def pdf2sb(
+    pdf_file: str,
+    gyazo_access_token: str,
+    dpi: int,
+    n_spaces: int,
+    pages: Optional[str] = None,
+) -> str:
+    """Upload PDF file to Gyazo as images then convert to Scrapbox format."""
+    client = gyazo.Api(access_token=gyazo_access_token)
+    urls = []
+    with tempfile.TemporaryDirectory() as tempdir:
+        if pages is None:
+            images: List[Image] = convert_from_path(pdf_file, dpi=dpi, fmt="png")
+        else:
+            images: List[Image] = list(
+                chain.from_iterable(
+                    convert_from_path(
+                        pdf_file, dpi=dpi, fmt="png", first_page=first, last_page=last
+                    )
+                    for first, last in parse_range(pages)
+                )
+            )
+        tempdir_p = Path(tempdir)
+        with click.progressbar(images, label="Uploading") as bar:
+            for i, img in enumerate(bar):
+                img_path = tempdir_p / f"{i}.png"
+                img.save(img_path)
+                gyazoimg = client.upload_image(img_path.open("rb"))
+                urls.append(gyazoimg.to_dict()["permalink_url"])
+    return "".join(f"> [{url}]\n" + "\n" * n_spaces for url in urls)
+
+
 @click.command()
 @click.argument("filepath", type=click.Path(exists=True))
 @click.option(
@@ -48,35 +80,22 @@ def parse_range(expr: str) -> Iterator[int]:
     "--spaces",
     default=1,
     show_default=True,
-    help="Number of spaces between images",
+    help="Number of spaces after images.",
 )
 @click.option("-p", "--pages", help="PDF pages to upload.")
 def main(
     filepath: str, token: str, dpi: int, spaces: int, pages: Optional[str]
 ) -> None:
-    """Upload PDF file to Gyazo as images then convert Scrapbox format."""
-    client = gyazo.Api(access_token=token)
-    urls = []
-    with tempfile.TemporaryDirectory() as tempdir:
-        if pages is None:
-            images: List[Image] = convert_from_path(filepath, dpi=dpi, fmt="png")
-        else:
-            images: List[Image] = list(
-                chain.from_iterable(
-                    convert_from_path(
-                        filepath, dpi=dpi, fmt="png", first_page=first, last_page=last
-                    )
-                    for first, last in parse_range(pages)
-                )
-            )
-        tempdir_p = Path(tempdir)
-        with click.progressbar(images, label="Uploading") as bar:
-            for i, img in enumerate(bar):
-                img_path = tempdir_p / f"{i}.png"
-                img.save(img_path)
-                gyazoimg = client.upload_image(img_path.open("rb"))
-                urls.append(gyazoimg.to_dict()["permalink_url"])
-    print(*(f"> [{url}]\n" for url in urls), sep="\n" * spaces)
+    click.echo(
+        pdf2sb(
+            pdf_file=filepath,
+            gyazo_access_token=token,
+            dpi=dpi,
+            n_spaces=spaces,
+            pages=pages,
+        ),
+        nl=False,
+    )
 
 
 if __name__ == "__main__":
