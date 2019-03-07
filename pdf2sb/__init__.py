@@ -8,7 +8,7 @@ import gyazo
 from PIL.Image import Image
 from pdf2image import convert_from_path
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 
 
 def parse_range(expr: str) -> Iterator[int]:
