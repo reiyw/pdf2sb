@@ -43,8 +43,17 @@ def parse_range(expr: str) -> Iterator[int]:
 @click.option(
     "-d", "--dpi", default=100, show_default=True, help="DPI of generating images."
 )
+@click.option(
+    "-s",
+    "--spaces",
+    default=1,
+    show_default=True,
+    help="Number of spaces between images",
+)
 @click.option("-p", "--pages", help="PDF pages to upload.")
-def main(filepath: str, token: str, dpi: int, pages: Optional[str]) -> None:
+def main(
+    filepath: str, token: str, dpi: int, spaces: int, pages: Optional[str]
+) -> None:
     """Upload PDF file to Gyazo as images then convert Scrapbox format."""
     client = gyazo.Api(access_token=token)
     urls = []
@@ -67,7 +76,7 @@ def main(filepath: str, token: str, dpi: int, pages: Optional[str]) -> None:
                 img.save(img_path)
                 gyazoimg = client.upload_image(img_path.open("rb"))
                 urls.append(gyazoimg.to_dict()["permalink_url"])
-    print(*(f"> [{url}]\n" for url in urls), sep="\n")
+    print(*(f"> [{url}]\n" for url in urls), sep="\n" * spaces)
 
 
 if __name__ == "__main__":
