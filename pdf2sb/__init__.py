@@ -8,7 +8,7 @@ import gyazo
 from PIL.Image import Image
 from pdf2image import convert_from_path
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 
 def parse_range(expr: str) -> Iterator[int]:
@@ -35,8 +35,9 @@ def parse_range(expr: str) -> Iterator[int]:
 def pdf2sb(
     pdf_file: str,
     gyazo_access_token: str,
-    dpi: int,
-    n_spaces: int,
+    dpi: int = 100,
+    n_spaces: int = 1,
+    expand: bool = False,
     pages: Optional[str] = None,
 ) -> str:
     """Upload PDF file to Gyazo as images then convert to Scrapbox format."""
@@ -61,7 +62,10 @@ def pdf2sb(
                 img.save(img_path)
                 gyazoimg = client.upload_image(img_path.open("rb"))
                 urls.append(gyazoimg.to_dict()["permalink_url"])
-    return "".join(f"> [{url}]\n" + "\n" * n_spaces for url in urls)
+    if expand:
+        return "".join(f"> [[{url}]]\n" + "\n" * n_spaces for url in urls)
+    else:
+        return "".join(f"> [{url}]\n" + "\n" * n_spaces for url in urls)
 
 
 @click.command()
@@ -83,8 +87,9 @@ def pdf2sb(
     help="Number of spaces after images.",
 )
 @click.option("-p", "--pages", help="PDF pages to upload.")
+@click.option("-e", "--expand", is_flag=True)
 def main(
-    filepath: str, token: str, dpi: int, spaces: int, pages: Optional[str]
+    filepath: str, token: str, dpi: int, spaces: int, pages: Optional[str], expand: bool
 ) -> None:
     click.echo(
         pdf2sb(
@@ -92,6 +97,7 @@ def main(
             gyazo_access_token=token,
             dpi=dpi,
             n_spaces=spaces,
+            expand=expand,
             pages=pages,
         ),
         nl=False,

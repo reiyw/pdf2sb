@@ -8,7 +8,7 @@ from pdf2sb import __version__, parse_range, pdf2sb
 
 
 def test_version() -> None:
-    assert __version__ == "0.3.2"
+    assert __version__ == "0.3.3"
 
 
 def test_parse_range() -> None:
