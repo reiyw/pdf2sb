@@ -9,7 +9,7 @@ import gyazo
 from PIL.Image import Image
 from pdf2image import convert_from_path
 
-__version__ = "0.3.4"
+__version__ = "0.3.5"
 
 
 def parse_range(expr: str) -> Iterator[int]:
@@ -148,7 +148,7 @@ def pdf2sb(
 )
 @click.option("-p", "--pages", help="PDF pages to upload.")
 @click.option("-e", "--expand", is_flag=True)
-@click.option("-l", "--extract-links", is_flag=True)
+@click.option("--extract-links/--no-extract-links", "-l/-L", default=True)
 def main(
     filepath: str,
     token: str,
