@@ -31,7 +31,8 @@ brew install poppler
 pip install pdf2sb
 ```
 
-- Get Gyazo access token from [here](https://gyazo.com/oauth/applications). 
+- Get Gyazo access token from [here](https://gyazo.com/oauth/applications).
+    - Follow the instructions in [this article (in Japanese)](https://blog.naichilab.com/entry/gyazo-access-token) if you don't understand.
 - Set `$GYAZO_ACCESS_TOKEN`:
 
 ```sh
