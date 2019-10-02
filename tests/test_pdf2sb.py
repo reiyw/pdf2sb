@@ -25,9 +25,14 @@ def test_parse_range() -> None:
 def test_pdf2sb() -> None:
     pdf_file = str(Path(__file__).resolve().parent / "slides.pdf")
     gyazo_access_token = os.getenv("GYAZO_ACCESS_TOKEN")
+    if gyazo_access_token is None:
+        assert False, "Set GYAZO_ACCESS_TOKEN"
 
     sb_repr = pdf2sb(
-        pdf_file=pdf_file, gyazo_access_token=gyazo_access_token, dpi=50, n_spaces=1
+        url_or_filepath=pdf_file,
+        gyazo_access_token=gyazo_access_token,
+        dpi=50,
+        n_spaces=1,
     )
     assert (
         re.match(
@@ -38,7 +43,10 @@ def test_pdf2sb() -> None:
     )
 
     sb_repr = pdf2sb(
-        pdf_file=pdf_file, gyazo_access_token=gyazo_access_token, dpi=50, n_spaces=4
+        url_or_filepath=pdf_file,
+        gyazo_access_token=gyazo_access_token,
+        dpi=50,
+        n_spaces=4,
     )
     assert (
         re.match(

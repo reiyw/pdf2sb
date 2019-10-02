@@ -1,18 +1,19 @@
 import tempfile
 from itertools import chain
 from pathlib import Path
-from typing import List, Iterator, Optional
+from typing import Iterable, Iterator, List, Optional, Tuple
+from urllib.request import urlopen
 
-import PyPDF2
 import click
 import gyazo
-from PIL.Image import Image
+import PyPDF2
 from pdf2image import convert_from_path
+from PIL.Image import Image
 
 __version__ = "0.3.5"
 
 
-def parse_range(expr: str) -> Iterator[int]:
+def parse_range(expr: str) -> Iterator[Tuple[int, int]]:
     """Yield start and end integer pairs from a complex range string like "1-9,12, 15-20,23".
 
     >>> list(parse_range("1-9,12, 15-20,23"))
@@ -60,7 +61,7 @@ def build_scrapbox_repr(
     gyazo_urls: List[str],
     expand: bool,
     n_spaces: int,
-    links: Optional[List[List[str]]] = None,
+    links: Optional[Iterable[Iterable[str]]] = None,
 ) -> str:
     if links is None:
         links = [[]] * len(gyazo_urls)
@@ -80,8 +81,16 @@ def build_scrapbox_repr(
     return "".join(blocks)
 
 
+def download_pdf(url: str) -> str:
+    """Return a path to the PDF file downloaded from `url`."""
+    resp = urlopen(url)
+    f = tempfile.NamedTemporaryFile(delete=False)
+    f.write(resp.read())
+    return f.name
+
+
 def pdf2sb(
-    pdf_file: str,
+    url_or_filepath: str,
     gyazo_access_token: str,
     dpi: int = 100,
     n_spaces: int = 1,
@@ -90,16 +99,22 @@ def pdf2sb(
     extract_links: bool = False,
 ) -> str:
     """Upload PDF file to Gyazo as images then convert to Scrapbox format."""
+    if url_or_filepath.startswith("http"):
+        filepath = download_pdf(url_or_filepath)
+    else:
+        filepath = url_or_filepath
+
     client = gyazo.Api(access_token=gyazo_access_token)
     urls = []
     with tempfile.TemporaryDirectory() as tempdir:
+        images: List[Image]
         if pages is None:
-            images: List[Image] = convert_from_path(pdf_file, dpi=dpi, fmt="png")
+            images = convert_from_path(filepath, dpi=dpi, fmt="png")
         else:
-            images: List[Image] = list(
+            images = list(
                 chain.from_iterable(
                     convert_from_path(
-                        pdf_file, dpi=dpi, fmt="png", first_page=first, last_page=last
+                        filepath, dpi=dpi, fmt="png", first_page=first, last_page=last
                     )
                     for first, last in parse_range(pages)
                 )
@@ -109,18 +124,19 @@ def pdf2sb(
             for i, img in enumerate(bar):
                 img_path = tempdir_p / f"{i}.png"
                 img.save(img_path)
-                gyazoimg = client.upload_image(img_path.open("rb"))
+                gyazoimg = client.upload_image(open(img_path, "rb"))
                 urls.append(gyazoimg.to_dict()["permalink_url"])
 
+    pages_l = None
     if pages is not None:
         # "1-4,6" --> [1, 2, 3, 4, 6]
-        pages = list(
+        pages_l = list(
             chain.from_iterable(
                 range(start, end + 1) for start, end in parse_range(pages)
             )
         )
 
-    links = extract_links_from_pdf(pdf_file, pages) if extract_links else None
+    links = extract_links_from_pdf(filepath, pages_l) if extract_links else None
 
     sb_repr = build_scrapbox_repr(
         gyazo_urls=urls, expand=expand, n_spaces=n_spaces, links=links
@@ -129,7 +145,7 @@ def pdf2sb(
 
 
 @click.command()
-@click.argument("filepath", type=click.Path(exists=True))
+@click.argument("url_or_filepath")
 @click.option(
     "-t",
     "--token",
@@ -150,7 +166,7 @@ def pdf2sb(
 @click.option("-e", "--expand", is_flag=True)
 @click.option("--extract-links/--no-extract-links", "-l/-L", default=True)
 def main(
-    filepath: str,
+    url_or_filepath: str,
     token: str,
     dpi: int,
     spaces: int,
@@ -158,19 +174,17 @@ def main(
     expand: bool,
     extract_links: bool,
 ) -> None:
-    click.echo(
-        pdf2sb(
-            pdf_file=filepath,
-            gyazo_access_token=token,
-            dpi=dpi,
-            n_spaces=spaces,
-            expand=expand,
-            pages=pages,
-            extract_links=extract_links,
-        ),
-        nl=False,
+    sb_repr = pdf2sb(
+        url_or_filepath=url_or_filepath,
+        gyazo_access_token=token,
+        dpi=dpi,
+        n_spaces=spaces,
+        expand=expand,
+        pages=pages,
+        extract_links=extract_links,
     )
+    click.echo(sb_repr, nl=False)
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pylint: disable=no-value-for-parameter
