@@ -16,7 +16,7 @@ click = "^7.0"
 pypdf2 = "^1.26"
 
 [tool.poetry.dev-dependencies]
-pytest = "^4.3"
+pytest = "^5.4"
 pylint = "^2.3"
 mypy = "^0.720.0"
 rope = "^0.14.0"
