@@ -290,17 +290,17 @@ category = "main"
 description = "A Python wrapper for Gyazo API"
 name = "python-gyazo"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
-version = "1.2.0"
+python-versions = "<4,>=3.5"
+version = "2.0.0"
 
 [package.dependencies]
-python-dateutil = ">=2.4.2"
-requests = ">=2.7.0"
+python-dateutil = ">=2.4"
+requests = ">=2.7"
 
 [package.extras]
-docs = ["Sphinx (>=1.7,<1.8)", "sphinx-rtd-theme (>=0.3.0,<0.4)"]
+docs = ["Sphinx (>=2.3,<3)", "sphinx-rtd-theme (>=0.4,<1)"]
 mypy = ["mypy"]
-test = ["coverage (>=4.3.4,<5.0.0)", "coveralls (>=1.1,<2.0)", "flake8 (>=3.3.0,<4.0.0)", "mock (>=2.0.0,<3.0.0)"]
+test = ["coverage (>=5,<6)", "coveralls (>=1.1,<2.0)", "flake8 (>=3.3,<4)", "pytest (>=5,<6)", "pytest-cov (>=2,<3)", "pytest-mock (>=2,<3)"]
 
 [[package]]
 category = "main"
@@ -395,7 +395,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "8cf83eeb18891c3f886ad6132a027f9f2f43400fec36b07a7c9960ca5b641a6a"
+content-hash = "1f4cc7d0ad7cb4d553dec9c87cb1ea59d07bb271ac09663f4a5846d7a335db68"
+lock-version = "1.0"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -575,10 +576,11 @@ python-dateutil = [
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
 ]
 python-gyazo = [
-    {file = "python-gyazo-1.2.0.tar.gz", hash = "sha256:43b16cd95054d605bd6c6f53179d8a8a67d9ba3244eb417247faa4408fedb6ad"},
-    {file = "python_gyazo-1.2.0-py2.py3-none-any.whl", hash = "sha256:ddaf2baa1ca17b0495ac679223ef7f6a3eb1bd9bb5f9ae3884b98f73692cc581"},
+    {file = "python-gyazo-2.0.0.tar.gz", hash = "sha256:8cc6dc4f5242285cb242bbe964d4c2925a9f8ea2616d2d16fd332e7147dac3b0"},
+    {file = "python_gyazo-2.0.0-py2.py3-none-any.whl", hash = "sha256:57912e49fc828fd2c58b16ffe070745da3b2fd5428281001a6cc01aebe522462"},
 ]
 requests = [
+    {file = "requests-2.23.0-py2.7.egg", hash = "sha256:5d2d0ffbb515f39417009a46c14256291061ac01ba8f875b90cad137de83beb4"},
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},
     {file = "requests-2.23.0.tar.gz", hash = "sha256:b3f43d496c6daba4493e7c431722aeb7dbc6288f52a6e04e7b6023b0247817e6"},
 ]

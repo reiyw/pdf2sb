@@ -11,7 +11,7 @@ repository = "https://github.com/reiyw/pdf2sb"
 python = "^3.6"
 pillow = "^5.4"
 pdf2image = "^1.4"
-python-gyazo = "^1.1"
+python-gyazo = ">=1.1,<3.0"
 click = "^7.0"
 pypdf2 = "^1.26"
 
