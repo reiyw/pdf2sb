@@ -175,7 +175,7 @@ description = "A wrapper around the pdftoppm and pdftocairo command line tools t
 name = "pdf2image"
 optional = false
 python-versions = "*"
-version = "1.12.1"
+version = "1.14.0"
 
 [package.dependencies]
 pillow = "*"
@@ -396,6 +396,7 @@ testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
 content-hash = "8cf83eeb18891c3f886ad6132a027f9f2f43400fec36b07a7c9960ca5b641a6a"
+lock-version = "1.0"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -492,7 +493,8 @@ packaging = [
     {file = "packaging-20.3.tar.gz", hash = "sha256:3c292b474fda1671ec57d46d739d072bfd495a4f51ad01a055121d81e952b7a3"},
 ]
 pdf2image = [
-    {file = "pdf2image-1.12.1.tar.gz", hash = "sha256:a0d9906f5507192210a8d5d7ead63145e9dec4bccc4564b1fb644e923913c31c"},
+    {file = "pdf2image-1.14.0-py3-none-any.whl", hash = "sha256:cf1b2dc77cf3e050cb06078cd7373469c8dca93d4cea1af2a2e1bbe0ed4a8800"},
+    {file = "pdf2image-1.14.0.tar.gz", hash = "sha256:066527e1bf954762fb4369c677ae3bc15f2ce8707eee830cccef8471fde736d7"},
 ]
 pillow = [
     {file = "Pillow-5.4.1-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:18e912a6ccddf28defa196bd2021fe33600cbe5da1aa2f2e2c6df15f720b73d1"},
@@ -579,6 +581,7 @@ python-gyazo = [
     {file = "python_gyazo-1.2.0-py2.py3-none-any.whl", hash = "sha256:ddaf2baa1ca17b0495ac679223ef7f6a3eb1bd9bb5f9ae3884b98f73692cc581"},
 ]
 requests = [
+    {file = "requests-2.23.0-py2.7.egg", hash = "sha256:5d2d0ffbb515f39417009a46c14256291061ac01ba8f875b90cad137de83beb4"},
     {file = "requests-2.23.0-py2.py3-none-any.whl", hash = "sha256:43999036bfa82904b6af1d99e4882b560e5e2c68e5c4b0aa03b655f3d7d73fee"},
     {file = "requests-2.23.0.tar.gz", hash = "sha256:b3f43d496c6daba4493e7c431722aeb7dbc6288f52a6e04e7b6023b0247817e6"},
 ]
