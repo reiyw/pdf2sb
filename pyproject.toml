@@ -9,7 +9,7 @@ repository = "https://github.com/reiyw/pdf2sb"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-pillow = "^5.4"
+pillow = ">=5.4,<7.0"
 pdf2image = "^1.4"
 python-gyazo = "^1.1"
 click = "^7.0"
