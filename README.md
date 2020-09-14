@@ -32,9 +32,17 @@ pip install pdf2sb
 ```
 
 - Get Gyazo access token from [here](https://gyazo.com/oauth/applications).
-    - Follow the instructions in [this article (in Japanese)](https://blog.naichilab.com/entry/gyazo-access-token) if you don't understand.
+    - Follow the instructions in [this article (in Japanese)](https://blog.naichilab.com/entry/gyazo-access-token).
 - Set `$GYAZO_ACCESS_TOKEN`:
 
 ```sh
 export GYAZO_ACCESS_TOKEN=<access token>
+```
+
+## Running via Docker
+
+You can run pdf2sb also via Docker:
+
+```sh
+docker run --env GYAZO_ACCESS_TOKEN=$GYAZO_ACCESS_TOKEN ghcr.io/reiyw/pdf2sb URL_OR_FILEPATH
 ```
