@@ -44,5 +44,7 @@ export GYAZO_ACCESS_TOKEN=<access token>
 You can run pdf2sb also via Docker:
 
 ```sh
-docker run --env GYAZO_ACCESS_TOKEN=$GYAZO_ACCESS_TOKEN ghcr.io/reiyw/pdf2sb URL_OR_FILEPATH
+FILE=<your pdf file>; docker run --env GYAZO_ACCESS_TOKEN=$GYAZO_ACCESS_TOKEN -v $(readlink -f $FILE):/app/${FILE##*/} ghcr.io/reiyw/pdf2sb ${FILE##*/}
+# or
+docker run --env GYAZO_ACCESS_TOKEN=$GYAZO_ACCESS_TOKEN ghcr.io/reiyw/pdf2sb <URL>
 ```
