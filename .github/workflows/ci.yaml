@@ -16,6 +16,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install Poppler
+        run: |
+          if [[ ${{ runner.os }} == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install poppler
+          elif [[ ${{ runner.os }} == "macOS" ]]; then
+            brew update
+            brew install poppler
+          fi
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
