@@ -21,7 +21,12 @@ pdf2sb = "pdf2sb:main"
 [tool.poetry.group.dev.dependencies]
 mypy = "^0.991"
 pytest = "^7.2.0"
+types-pillow = "^9.3.0.2"
+types-click = "^7.1.8"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true
