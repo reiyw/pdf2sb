@@ -25,6 +25,7 @@ types-pillow = "^9.3.0.2"
 types-click = "^7.1.8"
 pytest-mock = "^3.10.0"
 black = "^22.10.0"
+ruff = "^0.0.149"
 
 [build-system]
 requires = ["poetry-core"]
@@ -32,3 +33,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.ruff]
+ignore = ["F722"]

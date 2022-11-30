@@ -14,7 +14,7 @@ __version__ = "0.3.7"
 
 
 def parse_range(expr: str) -> Iterator[Tuple[int, int]]:
-    """Yield start and end integer pairs from a complex range string like "1-9,12, 15-20,23".
+    """Yield start and end integer pairs from a range string like "1-9,12, 15-20,23".
 
     >>> list(parse_range("1-9,12, 15-20,23"))
     [(1, 9), (12, 12), (15, 20), (23, 23)]
