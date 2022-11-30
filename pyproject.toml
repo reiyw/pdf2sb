@@ -11,7 +11,7 @@ repository = "https://github.com/reiyw/pdf2sb"
 python = "^3.7"
 pdf2image = "^1.4"
 python-gyazo = "^1.1"
-click = "^7.0"
+click = "^8.0"
 pypdf2 = "^1.26"
 Pillow = "^8.4.0"
 
@@ -24,6 +24,7 @@ pytest = "^7.2.0"
 types-pillow = "^9.3.0.2"
 types-click = "^7.1.8"
 pytest-mock = "^3.10.0"
+black = "^22.10.0"
 
 [build-system]
 requires = ["poetry-core"]

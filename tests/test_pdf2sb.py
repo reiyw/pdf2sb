@@ -27,13 +27,15 @@ def test_parse_range() -> None:
 def _make_dummy_upload_image_response(_file):
     image_id = str(uuid.uuid4()).replace("-", "")
     permalink_url = f"https://gyazo.com/{image_id}"
-    return gyazo.Image(permalink_url=permalink_url, created_at=None, thumb_url=None, type=None)
+    return gyazo.Image(
+        permalink_url=permalink_url, created_at=None, thumb_url=None, type=None
+    )
 
 
 def test_pdf2sb(mocker) -> None:
     pdf_file = str(Path(__file__).resolve().parent / "slides.pdf")
 
-    mock_api = mocker.patch('gyazo.Api')
+    mock_api = mocker.patch("gyazo.Api")
     mock_client = mock.Mock()
     mock_client.upload_image.side_effect = _make_dummy_upload_image_response
     mock_api.return_value = mock_client
