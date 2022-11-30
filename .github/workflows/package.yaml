@@ -1,13 +1,19 @@
 name: Python package
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - main
+    # tags:
+    #   - "v*.*.*"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libjpeg-dev
       - name: Build and publish to PyPI
         uses: JRubics/poetry-publish@v1.15
         with:
