@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdf2sb"
-version = "0.3.7"
+version = "0.3.8"
 description = "Upload PDF file to Gyazo as images then convert Scrapbox format"
 license = "MIT"
 authors = ["reiyw <reiyw.setuve@gmail.com>"]
@@ -8,22 +8,31 @@ readme = "README.md"
 repository = "https://github.com/reiyw/pdf2sb"
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7"
 pdf2image = "^1.4"
 python-gyazo = "^1.1"
-click = "^7.0"
+click = "^8.0"
 pypdf2 = "^1.26"
 Pillow = "^8.4.0"
-
-[tool.poetry.dev-dependencies]
-pytest = "^4.3"
-pylint = "^2.3"
-mypy = "^0.720.0"
-rope = "^0.14.0"
 
 [tool.poetry.scripts]
 pdf2sb = "pdf2sb:main"
 
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.991"
+pytest = "^7.2.0"
+types-pillow = "^9.3.0.2"
+types-click = "^7.1.8"
+pytest-mock = "^3.10.0"
+black = "^22.10.0"
+ruff = "^0.0.149"
+
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.ruff]
+ignore = ["F722"]
