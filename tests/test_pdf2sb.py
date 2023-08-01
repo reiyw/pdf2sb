@@ -6,7 +6,7 @@ import uuid
 import gyazo
 import pytest
 
-from pdf2sb import __version__, parse_range, pdf2sb
+from src.pdf2sb import __version__, parse_range, pdf2sb
 
 
 def test_version() -> None:
