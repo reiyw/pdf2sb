@@ -40,9 +40,3 @@ dev-dependencies = [
 
 [tool.hatch.metadata]
 allow-direct-references = true
-
-[tool.mypy]
-ignore_missing_imports = true
-
-[tool.ruff]
-ignore = ["F722"]
