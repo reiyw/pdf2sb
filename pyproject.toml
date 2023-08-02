@@ -14,7 +14,7 @@ dependencies = [
     "Pillow~=8.4.0",
 ]
 readme = "README.md"
-requires-python = ">= 3.7"
+requires-python = ">= 3.8"
 
 [project.urls]
 repository = "https://github.com/reiyw/pdf2sb"
