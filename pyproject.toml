@@ -2,7 +2,7 @@
 name = "pdf2sb"
 version = "0.3.9"
 description = "Upload PDF file to Gyazo as images then convert Scrapbox format"
-license = "MIT"
+license = {file = "LICENSE"}
 authors = [
     { name = "Ryo Takahashi", email = "reiyw.setuve@gmail.com" }
 ]
@@ -14,10 +14,10 @@ dependencies = [
     "Pillow~=8.4.0",
 ]
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = "~=3.8"
 
 [project.urls]
-repository = "https://github.com/reiyw/pdf2sb"
+Repository = "https://github.com/reiyw/pdf2sb"
 
 [project.scripts]
 pdf2sb = "pdf2sb:main"
