@@ -1,14 +1,13 @@
-FROM python:3.7-slim
+FROM python:3.11-slim
 
 COPY . /app
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install poppler-utils -y && \
-    pip install poetry && \
-    poetry install && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    poppler-utils \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r requirements.lock
 
-ENTRYPOINT ["poetry", "run", "pdf2sb"]
+ENTRYPOINT ["pdf2sb"]
