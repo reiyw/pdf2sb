@@ -10,7 +10,7 @@ import PyPDF2  # type: ignore[import]
 from pdf2image import convert_from_path
 from PIL.Image import Image
 
-__version__ = "0.3.9"
+__version__ = "0.3.10"
 
 
 def parse_range(expr: str) -> Iterator[Tuple[int, int]]:
