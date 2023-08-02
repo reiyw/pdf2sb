@@ -6,7 +6,7 @@ from urllib.request import urlopen
 
 import click
 import gyazo
-import PyPDF2
+import PyPDF2  # type: ignore[import]
 from pdf2image import convert_from_path
 from PIL.Image import Image
 
