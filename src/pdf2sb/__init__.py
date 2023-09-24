@@ -6,7 +6,7 @@ from urllib.request import urlopen
 
 import click
 import gyazo
-import PyPDF2  # type: ignore[import]
+import pypdf  # type: ignore[import]
 from pdf2image import convert_from_path
 from PIL.Image import Image
 
@@ -38,22 +38,18 @@ def extract_links_from_pdf(
     pdf_file: str, pages: Optional[List[int]] = None
 ) -> Iterator[List[str]]:
     # Mostly from https://stackoverflow.com/a/56299671
-    pdf = PyPDF2.PdfFileReader(open(pdf_file, "rb"))
-    annots = "/Annots"
-    uri = "/URI"
-    ank = "/A"
-    for page in range(pdf.getNumPages()):
-        if pages is not None and page not in pages:
+    pdf = pypdf.PdfReader(pdf_file)
+    pages = pages or list(range(1, len(pdf.pages) + 1))
+    for i, page in enumerate(pdf.pages, 1):
+        if i not in pages:
             continue
 
         links = []
-        pageobj = pdf.getPage(page).getObject()
-        if annots in pageobj.keys():
-            ann = pageobj[annots]
-            for a in ann:
-                u = a.getObject()
-                if uri in u[ank].keys():
-                    links.append(u[ank][uri])
+        if page.annotations is not None:
+            for annot in page.annotations:
+                a = annot.get_object()["/A"]
+                if "/URI" in a:
+                    links.append(annot.get_object()["/A"]["/URI"])
         yield links
 
 

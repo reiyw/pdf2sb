@@ -13,9 +13,10 @@ click==8.1.6
 idna==3.4
 pdf2image==1.16.3
 pillow==10.0.0
-pypdf2==1.28.6
+pypdf==3.16.1
 python-dateutil==2.8.2
 python-gyazo==1.2.0
 requests==2.31.0
 six==1.16.0
+typing-extensions==4.8.0
 urllib3==2.0.4
