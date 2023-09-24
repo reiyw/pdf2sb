@@ -7,11 +7,11 @@ authors = [
     { name = "Ryo Takahashi", email = "reiyw.setuve@gmail.com" }
 ]
 dependencies = [
-    "pdf2image~=1.4",
-    "python-gyazo~=1.1",
-    "click~=8.0",
-    "pypdf2~=1.26",
-    "Pillow~=10.0.0",
+    "pdf2image>=1.4",
+    "python-gyazo>=1.1",
+    "click>=8.0",
+    "pypdf2>=1.26",
+    "Pillow>=10.0.0",
 ]
 readme = "README.md"
 requires-python = "~=3.8"
