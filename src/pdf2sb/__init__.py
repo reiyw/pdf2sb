@@ -37,7 +37,6 @@ def parse_range(expr: str) -> Iterator[Tuple[int, int]]:
 def extract_links_from_pdf(
     pdf_file: str, pages: Optional[List[int]] = None
 ) -> Iterator[List[str]]:
-    # Mostly from https://stackoverflow.com/a/56299671
     pdf = pypdf.PdfReader(pdf_file)
     pages = pages or list(range(1, len(pdf.pages) + 1))
     for i, page in enumerate(pdf.pages, 1):
