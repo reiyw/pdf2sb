@@ -36,6 +36,7 @@ dev-dependencies = [
     "pytest-mock~=3.10.0",
     "black~=22.10.0",
     "ruff~=0.0.149",
+    "pytest-httpserver>=1.0.8",
 ]
 
 [tool.hatch.metadata]

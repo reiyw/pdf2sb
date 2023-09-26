@@ -6,9 +6,10 @@ import uuid
 
 import gyazo
 import pytest
+from pytest_httpserver import HTTPServer
 from pytest_mock import MockerFixture
 
-from pdf2sb import __version__, parse_range, pdf2sb
+from pdf2sb import __version__, parse_range, pdf2sb, download_pdf
 
 
 def test_version() -> None:
@@ -24,6 +25,17 @@ def test_parse_range() -> None:
     ]
     with pytest.raises(ValueError):
         list(parse_range("1-9,12, 15-20,2-3-4"))
+
+
+def test_download_pdf(httpserver: HTTPServer) -> None:
+    with open(Path(__file__).parent / "slides.pdf", "rb") as f:
+        pdf_bytes = f.read()
+
+    httpserver.expect_request("/").respond_with_data(pdf_bytes)
+
+    downloaded_path = download_pdf(httpserver.url_for("/"))
+    with open(downloaded_path, "rb") as f:
+        assert f.read() == pdf_bytes
 
 
 def _make_dummy_upload_image_response(_file: IO[bytes]) -> gyazo.Image:
