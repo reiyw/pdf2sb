@@ -1,10 +1,12 @@
 import re
 from pathlib import Path
+from typing import IO
 from unittest import mock
 import uuid
 
 import gyazo
 import pytest
+from pytest_mock import MockerFixture
 
 from pdf2sb import __version__, parse_range, pdf2sb
 
@@ -24,7 +26,7 @@ def test_parse_range() -> None:
         list(parse_range("1-9,12, 15-20,2-3-4"))
 
 
-def _make_dummy_upload_image_response(_file):
+def _make_dummy_upload_image_response(_file: IO[bytes]) -> gyazo.Image:
     image_id = str(uuid.uuid4()).replace("-", "")
     permalink_url = f"https://gyazo.com/{image_id}"
     return gyazo.Image(
@@ -32,7 +34,7 @@ def _make_dummy_upload_image_response(_file):
     )
 
 
-def test_pdf2sb(mocker) -> None:
+def test_pdf2sb(mocker: MockerFixture) -> None:
     pdf_file = str(Path(__file__).resolve().parent / "slides.pdf")
 
     mock_api = mocker.patch("gyazo.Api")

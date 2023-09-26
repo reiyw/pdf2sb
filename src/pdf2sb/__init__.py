@@ -6,8 +6,8 @@ from urllib.request import urlopen
 
 import click
 import gyazo
-import pypdf  # type: ignore[import]
-from pdf2image import convert_from_path
+import pypdf
+from pdf2image import convert_from_path  # type: ignore[attr-defined]
 from PIL.Image import Image
 
 __version__ = "0.3.10"
@@ -183,4 +183,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()  # pylint: disable=no-value-for-parameter
+    main()
