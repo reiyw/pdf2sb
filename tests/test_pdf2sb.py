@@ -13,7 +13,7 @@ from pdf2sb import __version__, parse_range, pdf2sb, download_pdf
 
 
 def test_version() -> None:
-    assert __version__ == "0.3.10"
+    assert __version__ == "0.3.11"
 
 
 def test_parse_range() -> None:
