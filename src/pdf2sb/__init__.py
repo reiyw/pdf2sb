@@ -6,9 +6,7 @@ from urllib.request import urlopen
 
 import click
 import gyazo
-import pypdf
-from pdf2image import convert_from_path  # type: ignore[attr-defined]
-from PIL.Image import Image
+import pymupdf  # type: ignore[import]
 
 __version__ = "0.3.10"
 
@@ -37,19 +35,13 @@ def parse_range(expr: str) -> Iterator[Tuple[int, int]]:
 def extract_links_from_pdf(
     pdf_file: str, pages: Optional[List[int]] = None
 ) -> Iterator[List[str]]:
-    pdf = pypdf.PdfReader(pdf_file)
-    pages = pages or list(range(1, len(pdf.pages) + 1))
-    for i, page in enumerate(pdf.pages, 1):
-        if i not in pages:
-            continue
+    with pymupdf.open(pdf_file) as doc:
+        pages = pages or list(range(1, len(doc) + 1))
+        for i, page in enumerate(doc, 1):
+            if i not in pages:
+                continue
 
-        links = []
-        if page.annotations is not None:
-            for annot in page.annotations:
-                a = annot.get_object()["/A"]
-                if "/URI" in a:
-                    links.append(annot.get_object()["/A"]["/URI"])
-        yield links
+            yield [link["uri"] for link in page.get_links()]
 
 
 def build_scrapbox_repr(
@@ -101,24 +93,26 @@ def pdf2sb(
 
     client = gyazo.Api(access_token=gyazo_access_token)
     urls = []
-    with tempfile.TemporaryDirectory() as tempdir:
-        images: List[Image]
+    pixmaps = []
+
+    with pymupdf.open(filepath) as doc:
         if pages is None:
-            images = convert_from_path(filepath, dpi=dpi, fmt="png")
+            include_pages = set(range(1, len(doc) + 1))
         else:
-            images = list(
-                chain.from_iterable(
-                    convert_from_path(
-                        filepath, dpi=dpi, fmt="png", first_page=first, last_page=last
-                    )
-                    for first, last in parse_range(pages)
-                )
-            )
+            include_pages = set()
+            for start, end in parse_range(pages):
+                include_pages.update(range(start, end + 1))
+
+        for i, page in enumerate(doc, start=1):
+            if i in include_pages:
+                pixmaps.append(page.get_pixmap(dpi=dpi))
+
+    with tempfile.TemporaryDirectory() as tempdir:
         tempdir_p = Path(tempdir)
-        with click.progressbar(images, label="Uploading") as bar:
-            for i, img in enumerate(bar):
+        with click.progressbar(pixmaps, label="Uploading") as bar:
+            for i, pixmap in enumerate(bar):
                 img_path = tempdir_p / f"{i}.png"
-                img.save(img_path)
+                pixmap.save(img_path)
                 gyazoimg = client.upload_image(open(img_path, "rb"))
                 urls.append(gyazoimg.to_dict()["permalink_url"])
 

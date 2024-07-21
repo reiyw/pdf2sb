@@ -7,11 +7,9 @@ authors = [
     { name = "Ryo Takahashi", email = "reiyw.setuve@gmail.com" }
 ]
 dependencies = [
-    "pdf2image>=1.4",
     "python-gyazo>=1.1",
     "click>=8.0",
-    "Pillow>=10.0.0",
-    "pypdf>=3.16.1",
+    "pymupdf>=1.24.7",
 ]
 readme = "README.md"
 requires-python = "~=3.8"
@@ -31,7 +29,6 @@ managed = true
 dev-dependencies = [
     "mypy~=0.991",
     "pytest~=7.2.0",
-    "types-pillow~=9.3.0.2",
     "types-click~=7.1.8",
     "pytest-mock~=3.10.0",
     "black~=22.10.0",

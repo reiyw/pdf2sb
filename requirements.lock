@@ -5,18 +5,29 @@
 #   pre: false
 #   features: []
 #   all-features: false
+#   with-sources: false
+#   generate-hashes: false
 
 -e file:.
 certifi==2023.7.22
+    # via requests
 charset-normalizer==3.2.0
+    # via requests
 click==8.1.6
+    # via pdf2sb
 idna==3.4
-pdf2image==1.16.3
-pillow==10.0.0
-pypdf==3.16.1
+    # via requests
+pymupdf==1.24.7
+    # via pdf2sb
+pymupdfb==1.24.6
+    # via pymupdf
 python-dateutil==2.8.2
+    # via python-gyazo
 python-gyazo==1.2.0
+    # via pdf2sb
 requests==2.31.0
+    # via python-gyazo
 six==1.16.0
-typing-extensions==4.8.0
+    # via python-dateutil
 urllib3==2.0.4
+    # via requests
