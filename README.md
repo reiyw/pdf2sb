@@ -17,12 +17,6 @@ Paste copied text to a Scrapbox page:
 
 ## Installation
 
-- [poppler](https://poppler.freedesktop.org/) is required to generate images from a PDF file. Install poppler via Homebrew:
-
-```sh
-brew install poppler
-```
-
 - Install pdf2sb:
 
 ```sh
