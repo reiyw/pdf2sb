@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && pip install uv==0.7.11 \
-    && uv pip sync requirements.lock
+    && uv sync
 
 ENTRYPOINT ["pdf2sb"]
