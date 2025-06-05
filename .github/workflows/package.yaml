@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: eifinger/setup-rye@v1
-      - run: rye build
-      - run: rye publish --token ${{ secrets.PYPI_TOKEN }} --yes
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv pip install build twine
+      - run: python -m build
+      - run: python -m twine upload --non-interactive -u __token__ -p ${{ secrets.PYPI_TOKEN }} dist/*
